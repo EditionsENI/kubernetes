@@ -13,4 +13,4 @@ COPY . /app
 
 ENTRYPOINT [ "flask" ]
 
-CMD [ "app.py" ]
+CMD [ "run" ]
