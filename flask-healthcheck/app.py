@@ -9,6 +9,7 @@ app = Flask(__name__)
 health = HealthCheck(app, "/healthcheck")
 envdump = EnvironmentDump(app, "/environment")
 
+@app.route('/')
 def hello_world():
   kube_logo = "https://upload.wikimedia.org/wikipedia/commons" + \
               "/thumb/6/67/" + \
