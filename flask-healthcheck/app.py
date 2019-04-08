@@ -15,7 +15,8 @@ def application_data():
 
 @app.route('/')
 def hello_world():
-    return "Accéder au <a href='/healthcheck'>Healthcheck</a> " + \
+    kube_logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Kubernetes_logo.svg/798px-Kubernetes_logo.svg.png"
+    return f"<img src='{kube_logo}'/><br/><br/>Accéder au <a href='/healthcheck'>Healthcheck</a> " + \
            "et aux infos de l'<a href='/environment'>environnement</a>"
 
 envdump.add_section("application", application_data)
