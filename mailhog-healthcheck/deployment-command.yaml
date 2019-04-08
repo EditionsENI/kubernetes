@@ -18,8 +18,8 @@ spec:
       - image: mailhog/mailhog
         name: mailhog
         readinessProbe:
-          tcpSocket:
-            port: 8025
+          exec:
+            command: ["ls", "-ld", "/tmp"]
         livenessProbe:
-          tcpSocket:
-            port: 8025
+          exec:
+            command: ["ls", "-ld", "/tmp"]
