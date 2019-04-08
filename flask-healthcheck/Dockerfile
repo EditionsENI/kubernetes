@@ -11,6 +11,6 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
-ENTRYPOINT [ "flask" ]
+ENTRYPOINT ["flask"]
 
-CMD [ "run" ]
+CMD ["run", "--host=0.0.0.0"]
