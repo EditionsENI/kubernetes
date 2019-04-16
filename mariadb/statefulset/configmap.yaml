@@ -1,0 +1,63 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadb
+data:
+  MYSQL_DATABASE:      test
+  MYSQL_USER:          test
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadb-init-db
+data:
+  start.sh: |-
+    #!/bin/sh
+    INDEX=`hostname | awk -F- '{ print $2 }'`
+    ID=`expr $INDEX + 1`
+    OPTIONS="--server-id=$ID --log-bin --log-basename=master"
+    OPTIONS="$OPTIONS --binlog-do-db=$MYSQL_DATABASE"
+    OPTIONS="$OPTIONS --binlog-format=row --replicate-do-db=$MYSQL_DATABASE"
+    /mariadb-init-db/configure-sync.sh
+    case `hostname` in
+      mariadb-0) : ;;
+      *) unset MYSQL_USER MYSQL_PASSWORD ;;
+    esac
+    exec docker-entrypoint.sh $OPTIONS
+  replication-user.sql: |-
+    create user 'replication'@'%' identified by 'ReplicationUser';
+    grant replication slave on *.* to 'replication'@'%';
+  configure-slave.sql: |-
+    CHANGE MASTER TO
+      MASTER_HOST='mariadb-0.mariadb',
+      MASTER_USER='replication',
+      MASTER_PASSWORD='ReplicationUser',
+      MASTER_PORT=3306,
+      MASTER_LOG_FILE='@FILE@',
+      MASTER_LOG_POS=@POSITION@,
+      MASTER_CONNECT_RETRY=10;
+    START SLAVE;
+  configure-sync.sh: |-
+    #!/bin/sh
+    # Si sur le maitre => on créé le compte de réplication et on sort
+    if [ `hostname` = "mariadb-0" ]; then
+      cp /mariadb-init-db/replication-user.sql /docker-entrypoint-initdb.d
+      exit
+    fi
+    # Sinon, configuration de l'esclave
+    echo "show master status;" | \
+      mysql -h mariadb-0.mariadb -p$MYSQL_ROOT_PASSWORD > /tmp/status
+    FILE=`    awk '/master-bin/ { print $1}' /tmp/status`
+    POSITION=`awk '/master-bin/ { print $2}' /tmp/status`
+    rm /tmp/status
+    echo "$FILE/$POSITION"
+    cat /mariadb-init-db/configure-slave.sql | \
+        sed "s/@FILE@/$FILE/" |\
+        sed "s/@POSITION@/$POSITION/" |\
+        cat > /docker-entrypoint-initdb.d/configure-slave.sql
+  stop-db.sql: |-
+    STOP SLAVE;
+    SHUTDOWN;
+  stop-db.sh: |-
+    mysql -p$MYSQL_ROOT_PASSWORD /docker-entrypoint-initdb.d/stop-db.sql
