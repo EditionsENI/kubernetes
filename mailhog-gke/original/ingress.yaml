@@ -4,7 +4,7 @@ metadata:
   name: mailhog
 spec:
   rules:
-  - host: "mailhog.35.190.188.198.nip.io"
+  - host: "*.nip.io"
     http:
       paths:
       - path: /
