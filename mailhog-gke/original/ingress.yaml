@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mailhog
+spec:
+  rules:
+  - host: "mailhog.35.190.188.198.nip.io"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: mailhog
+          servicePort: 8025
