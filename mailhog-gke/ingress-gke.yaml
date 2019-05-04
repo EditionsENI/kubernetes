@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mailhog
+  annotations:
+    kubernetes.io/ingress.class: gce
+spec:
+  rules:
+  - host: "mailhog.eni.yannig.ovh"
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: mailhog
+          servicePort: 8025

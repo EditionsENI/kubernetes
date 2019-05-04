@@ -1,0 +1,10 @@
+rbac:
+  enabled: true
+
+kubernetes:
+  ingressEndpoint:
+    useDefaultPublishedService: true
+
+dashboard:
+  enabled: true
+  domain: traefik.admin.eni.yannig.ovh
