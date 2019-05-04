@@ -1,9 +1,11 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-ingress-wordpress
+  name: allow-nginx-ingress
 spec:
-  podSelector: {}
+  podSelector:
+    matchLabels:
+      app: wordpress-wordpress
   policyTypes: ["Ingress"]
   ingress:
     - from:
