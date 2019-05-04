@@ -1,0 +1,13 @@
+---
+
+config:
+  clientID: "024xxxxxxxxxxxxxx7b"
+  clientSecret: "8bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxb8"
+  cookieSecret: "7JYxxxxxxxxxxxxxxxxxxxxxxxxxxxxxFOx"
+
+extraArgs:
+  provider: "github"
+  # You can restrict access using email domain
+  # ie: my-company.com
+  email-domain: "*"
+  github-org: EditionsENI
