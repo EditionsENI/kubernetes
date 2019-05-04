@@ -1,0 +1,27 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mariadb
+  labels:
+    app: mariadb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      volumes:
+        - name: mariadb-data
+          persistentVolumeClaim: { claimName: mariadb-data }
+      containers:
+        - image: mariadb/mariadb
+          name: mariadb
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /data
+              name:      mariadb-data

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mariadb
+  name: mariadb
+spec:
+  # No rolling update
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      volumes:
+        - name: mariadb-data
+          persistentVolumeClaim: { claimName: mariadb-data }
+      containers:
+        - image: mariadb
+          name: mariadb
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name:      mariadb-data
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: mot-de-passe-root
+          livenessProbe:
+            exec:
+              command: 
+                - "sh"
+                - "-c"
+                - "mysqladmin status -p$MYSQL_ROOT_PASSWORD"
+          readinessProbe:
+            exec:
+              command: 
+                - "sh"
+                - "-c"
+                - "mysqladmin status -p$MYSQL_ROOT_PASSWORD"
