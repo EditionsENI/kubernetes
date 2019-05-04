@@ -1,0 +1,8 @@
+rbac:
+  create: true
+
+provider: google
+
+google:
+  project: "eni-kubernetes"
+  serviceAccountSecret: "cloud-dns-key"
