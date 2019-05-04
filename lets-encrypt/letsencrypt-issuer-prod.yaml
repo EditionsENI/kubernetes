@@ -9,13 +9,4 @@ spec:
     email: yannig.perre@gmail.com
     privateKeySecretRef:
       name: letsencrypt-prod
-    dns01:
-      providers:
-        - name: prod-dns
-          clouddns:
-            # A secretKeyRef to a google cloud json service account
-            serviceAccountSecretRef:
-              name: cloud-dns-key
-              key: credentials.json
-            # The project in which to update the DNS zone
-            project: "eni-kubernetes"
+    http01: {}
