@@ -1,0 +1,7 @@
+rbac:
+  create: true
+controller:
+  publishService:
+    enabled: true
+  extraArgs:
+    default-ssl-certificate: "default/eni-yannig-ovh-prod-tls"
