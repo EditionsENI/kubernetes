@@ -1,0 +1,11 @@
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: 'true'
+  hosts:
+    - name: "wordpress.eni.yannig.ovh"
+  tls:
+    - hosts:
+        - "wordpress.eni.yannig.ovh"
+      secretName: wordpress-eni-yannig-ovh-tls
