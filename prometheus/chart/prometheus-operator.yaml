@@ -1,0 +1,60 @@
+alertmanager:
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+    hosts:
+      - "alertmanager.eni.yannig.ovh"
+    tls:
+      - secretName: alertmanager-eni-yannig-ovh
+        hosts:
+          - "alertmanager.eni.yannig.ovh"
+
+  config:
+    global:
+      slack_api_url: 'URL_PRESSE_PAPIER'
+
+    receivers:
+      - name: 'null'
+      - name: default-receiver
+        slack_configs:
+          - channel: '#monitoring'
+            send_resolved: true
+    route:
+      receiver: default-receiver
+      repeat_interval: 3h
+      routes:
+        - match:
+            alertname: Watchdog
+          receiver: 'null'
+        - match:
+            severity: warning
+          receiver: 'null'
+
+grafana:
+  persistence:
+    enabled: true
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+    hosts:
+      - "grafana.eni.yannig.ovh"
+    tls:
+      - secretName: grafana-eni-yannig-ovh
+        hosts:
+          - "grafana.eni.yannig.ovh"
+
+coreDns:
+  enabled: false
+
+kubeDns:
+  enabled: true
+
+kubeControllerManager:
+  enabled: false
+
+kubeScheduler:
+  enabled: false
