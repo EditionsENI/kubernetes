@@ -2,38 +2,6 @@ files:
   kibana.yml:
     elasticsearch.url: "http://elasticsearch-client:9200"
 
-ingress:
-  enabled: true
-  hosts:
-    - "kibana.eni.yannig.ovh"
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: "true"
-  tls:
-    - secretName: kibana-eni-yannig-ovh
-      hosts:
-        - "kibana.eni.yannig.ovh"
-
-authProxyEnabled: true
-
-service:
-  authProxyPort: 5602
-
-extraContainers: |
-  - name: proxy
-    image: quay.io/gambol99/keycloak-proxy:latest
-    args:
-      - --resources=uri=/*
-      - --discovery-url=https://accounts.google.com/.well-known/openid-configuration
-      - --client-id=XxXxXxXxXxXxXxXxXxXxXxXx
-      - --client-secret=YyYyYyYyYyYyYyYyYyYyYyYy
-      - --listen=0.0.0.0:5602
-      - --upstream-url=http://127.0.0.1:5601
-      - --verbose
-    ports:
-      - name: web
-        containerPort: 9090
-
 resources:
    limits:
      cpu: 100m
