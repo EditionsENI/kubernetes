@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: test
+  namespace: test-istio
+spec:
+  hosts:
+  - "test-istio.eni.yannig.ovh"
+  gateways:
+  - test-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 8000
+        host: test
