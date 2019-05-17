@@ -1,11 +1,19 @@
+gateways:
+  istio-ingressgateway:
+    sds:
+      enabled: true
+
 global:
   sds:
     enabled: true
-    udsPath: "unix:/var/run/sds/uds_path"
-    useNormalJwt: true
 
   k8sIngress:
     enabled: true
+    enableHttps: true
+    gatewayName: ingressgateway
+
+grafana:
+  enabled: true
 
 nodeagent:
   enabled: true
@@ -15,36 +23,24 @@ nodeagent:
     CA_ADDR: "istio-citadel:8060"
     VALID_TOKEN: true
 
-gateways:
-  enabled: false
-
-grafana:
-  enabled: true
-
 tracing:
   enabled: true
 
 kiali:
   enabled: true
   createDemoSecret: true
+  contextPath: /
+  dashboard:
+    grafanaURL: http://grafana-istio.eni.yannig.ovh
+    jaegerURL:  http://jaeger.eni.yannig.ovh
 
 mixer:
   policy:
     enabled: true
-    resources:
-      requests:
-        cpu: 10m
-        memory: 100Mi
-      limits:
-        cpu: 100m
-        memory: 100Mi
 
   telemetry:
     enabled: true
     resources:
       requests:
         cpu: 50m
-        memory: 100Mi
-      limits:
-        cpu: 100m
         memory: 100Mi
