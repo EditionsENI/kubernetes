@@ -5,7 +5,7 @@ metadata:
   namespace: test-istio
 spec:
   hosts:
-  - "test-istio.eni.yannig.ovh"
+  - "test.eni.yannig.ovh"
   gateways:
   - test-gateway
   http:

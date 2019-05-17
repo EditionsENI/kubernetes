@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailhog
+  namespace: test-istio
+  labels:
+    app: mailhog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mailhog
+  template:
+    metadata:
+      labels:
+        app: mailhog
+    spec:
+      containers:
+        - image: mailhog/mailhog
+          name: mailhog
+          ports:
+            - name: "http"
+              containerPort: 8025
+            - name: "smtp"
+              containerPort: 1025

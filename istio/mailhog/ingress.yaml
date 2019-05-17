@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mailhog-istio
+  namespace: test-istio
+  annotations:
+    kubernetes.io/ingress.class: istio
+spec:
+  rules:
+  - host: "mailhog-istio.eni.yannig.ovh"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: mailhog
+          servicePort: 8025
