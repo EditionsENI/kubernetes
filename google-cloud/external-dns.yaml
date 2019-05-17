@@ -6,3 +6,8 @@ provider: google
 google:
   project: "eni-kubernetes"
   serviceAccountSecret: "cloud-dns-key"
+
+sources:
+  - service
+  - ingress
+  - istio-gateway
