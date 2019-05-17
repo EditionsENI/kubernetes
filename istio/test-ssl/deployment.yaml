@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: test
+  namespace: test-istio
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test
+        version: v1
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: IfNotPresent
+        name: test
+        ports:
+        - containerPort: 80
