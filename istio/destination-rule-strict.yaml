@@ -1,0 +1,11 @@
+apiVersion: "authentication.istio.io/v1alpha1"
+kind: "Policy"
+metadata:
+  name: "test-istio-client-mtls-strict"
+  namespace: "test-istio"
+spec:
+  targets:
+    - name: test
+  peers:
+    - mtls:
+        mode: STRICT
