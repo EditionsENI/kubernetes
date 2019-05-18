@@ -1,0 +1,11 @@
+grafana:
+  enabled: true
+  ingress:
+    enabled: true
+    hosts:
+      - "grafana-istio.eni.yannig.ovh"
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+    tls:
+      - secretName: grafana-istio-eni-yannig-ovh

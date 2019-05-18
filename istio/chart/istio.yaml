@@ -1,8 +1,3 @@
-gateways:
-  istio-ingressgateway:
-    sds:
-      enabled: true
-
 global:
   sds:
     enabled: true
@@ -12,9 +7,6 @@ global:
     enableHttps: true
     gatewayName: ingressgateway
 
-grafana:
-  enabled: true
-
 nodeagent:
   enabled: true
   image: node-agent-k8s
@@ -23,16 +15,10 @@ nodeagent:
     CA_ADDR: "istio-citadel:8060"
     VALID_TOKEN: true
 
-tracing:
-  enabled: true
-
-kiali:
-  enabled: true
-  createDemoSecret: true
-  contextPath: /
-  dashboard:
-    grafanaURL: http://grafana-istio.eni.yannig.ovh
-    jaegerURL:  http://jaeger.eni.yannig.ovh
+gateways:
+  istio-ingressgateway:
+    sds:
+      enabled: true
 
 mixer:
   policy:
