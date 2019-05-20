@@ -10,15 +10,17 @@ spec:
     - port:
         number: 80
         name: http
-        protocol: HTTP
+        protocol: HTTP2
       hosts:
         - "test.eni.yannig.ovh"
+      tls:
+        httpsRedirect: true
     - port:
         number: 443
         name: https
         protocol: HTTPS
+      hosts:
+        - "test.eni.yannig.ovh"
       tls:
         mode: SIMPLE
         credentialName: "test-eni-yannig-ovh-prod-tls"
-      hosts:
-        - "test.eni.yannig.ovh"

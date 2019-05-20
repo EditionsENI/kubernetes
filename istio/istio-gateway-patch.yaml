@@ -1,0 +1,7 @@
+- op: "replace"
+  path: "/spec/servers/1/tls"
+  value:
+    credentialName: "test-eni-yannig-ovh-prod-tls"
+    mode: "SIMPLE"
+    privateKey: "sds"
+    serverCertificate: "sds"

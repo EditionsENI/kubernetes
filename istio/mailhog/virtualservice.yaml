@@ -9,11 +9,11 @@ spec:
   gateways:
   - mailhog-gateway
   http:
-  - match:
-    - uri:
-        prefix: /
-    route:
-    - destination:
-        port:
-          number: 8025
-        host: mailhog
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            port:
+              number: 8025
+            host: mailhog
