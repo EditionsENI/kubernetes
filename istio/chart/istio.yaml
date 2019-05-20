@@ -1,15 +1,17 @@
 global:
-  sds:
-    enabled: true
 
   k8sIngress:
     enabled: true
     enableHttps: true
     gatewayName: ingressgateway
 
+  sds:
+    enabled: true
+    udsPath: "unix:/var/run/sds/uds_path"
+    useNormalJwt: true
+
 nodeagent:
   enabled: true
-  image: node-agent-k8s
   env:
     CA_PROVIDER: "Citadel"
     CA_ADDR: "istio-citadel:8060"
