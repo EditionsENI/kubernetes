@@ -3,9 +3,9 @@ tracing:
   ingress:
     enabled: true
     hosts:
-      - "jaeger.eni.yannig.ovh"
+      - "kiali.eni.yannig.ovh"
     annotations:
       kubernetes.io/ingress.class: nginx
       kubernetes.io/tls-acme: "true"
     tls:
-      - secretName: jaeger-eni-yannig-ovh
+      - secretName: kiali-eni-yannig-ovh

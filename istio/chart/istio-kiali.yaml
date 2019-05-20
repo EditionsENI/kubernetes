@@ -3,8 +3,8 @@ kiali:
   createDemoSecret: true
   contextPath: /
   dashboard:
-    grafanaURL: http://grafana-istio.eni.yannig.ovh
-    jaegerURL:  http://jaeger.eni.yannig.ovh
+    grafanaURL: /grafana
+    jaegerURL:  /jaeger
 
   ingress:
     enabled: true
