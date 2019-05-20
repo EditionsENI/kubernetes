@@ -1,19 +1,18 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: test
+  name: mailhog
   namespace: test-istio
 spec:
-  replicas: 1
   template:
     metadata:
       labels:
-        app: test
+        app: mailhog
         version: v1
     spec:
       containers:
-      - image: nginx
-        imagePullPolicy: IfNotPresent
-        name: test
+      - image: mailhog/mailhog
+        name: mailhog
         ports:
-        - containerPort: 80
+          - containerPort: 1025
+          - containerPort: 8025

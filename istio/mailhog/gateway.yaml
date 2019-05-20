@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: test-gateway
+  name: mailhog-gateway
   namespace: test-istio
 spec:
   selector:
