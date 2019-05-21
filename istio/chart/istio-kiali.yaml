@@ -3,7 +3,7 @@ kiali:
   createDemoSecret: true
   contextPath: /
   dashboard:
-    grafanaURL: /grafana
+    grafanaURL: https://grafana-istio.eni.yannig.ovh/
     jaegerURL:  /jaeger
 
   ingress:

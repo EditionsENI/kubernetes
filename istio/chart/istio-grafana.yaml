@@ -1,5 +1,6 @@
 grafana:
   enabled: true
+  contextPath: /
   ingress:
     enabled: true
     hosts:

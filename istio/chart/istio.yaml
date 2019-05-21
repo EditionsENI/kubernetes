@@ -32,3 +32,6 @@ mixer:
       requests:
         cpu: 50m
         memory: 100Mi
+
+pilot:
+  traceSampling: 100.0
