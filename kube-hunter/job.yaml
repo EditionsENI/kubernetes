@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kube-hunter
+spec:
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+      - name: kube-hunter
+        image: aquasec/kube-hunter 
+        command: ["python", "kube-hunter.py"]
+        args:
+          - "--pod"
+          - "--token"
+          - "MY_TOKEN"
+      restartPolicy: Never
+  backoffLimit: 4
