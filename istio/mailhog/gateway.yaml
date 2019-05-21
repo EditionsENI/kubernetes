@@ -9,7 +9,7 @@ spec:
   servers:
     - port:
         number: 80
-        name: http
+        name: http2-mailhog
         protocol: HTTP2
       hosts:
         - "test.eni.yannig.ovh"
@@ -17,7 +17,7 @@ spec:
         httpsRedirect: true
     - port:
         number: 443
-        name: https
+        name: https-mailhog
         protocol: HTTPS
       hosts:
         - "test.eni.yannig.ovh"
