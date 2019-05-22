@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: my-private-application
+  name: my-private-application
+  namespace: my-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-private-application
+  template:
+    metadata:
+      labels:
+        app: my-private-application
+    spec:
+      # Secrets to use to pull image from private registry
+      imagePullSecrets:
+        - name: my-docker-registry-cred
+      containers:
+      - image: my-private-registry/my-org/my-private-image
+        name: my-private-application
