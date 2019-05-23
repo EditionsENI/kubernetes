@@ -1,0 +1,15 @@
+concourse:
+  web:
+    externalUrl: "https://concourse.eni.yannig.ovh"
+web:
+  ingress:
+    enabled: true
+    hosts:
+      - "concourse.eni.yannig.ovh"
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+    tls:
+      - secretName: concourse-eni-yannig-ovh
+        hosts:
+          - "concourse.eni.yannig.ovh"
