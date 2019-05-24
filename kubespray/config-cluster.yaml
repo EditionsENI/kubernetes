@@ -4,8 +4,8 @@ dashboard_enabled: no
 # Retrieve cluster kubeconfig
 kubeconfig_localhost: yes
 
-# Cluster is deployed in aws
-cloud_provider: aws
-
 # Activate Ingress controller
 ingress_nginx_enabled: yes
+
+# Activate Helm Tiller
+helm_enabled: true
