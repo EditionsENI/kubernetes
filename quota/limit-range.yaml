@@ -7,11 +7,11 @@ spec:
     - type: "Pod"
       max:
         cpu: "2"
-        memory: "2G"
+        memory: "300M"
     - type: "Container"
       max:
         cpu: "1"
-        memory: "1G"
+        memory: "240M"
       default:
         cpu: "300m"
         memory: "200Mi"
@@ -19,5 +19,5 @@ spec:
         cpu: "200m"
         memory: "100Mi"
       maxLimitRequestRatio:
-        cpu: "2"
-        memory: "1.2"
+        cpu: "4"
+        memory: "2"
