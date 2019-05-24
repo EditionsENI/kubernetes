@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  name: secrets-role-delegation
+  namespace: delegation
+rules:
+  - apiGroups: [""] # "" indicates the core API group
+    resources: ["configmap", "secrets"]
+    verbs: ["get", "watch", "list"]
+  - apiGroups: [""]
+    resources: ["pods", "pods/log"]
+    verbs: ["get", "list"]
