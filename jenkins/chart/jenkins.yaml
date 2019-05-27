@@ -1,3 +1,6 @@
+rbac:
+  create: true
+
 master:
   ingress:
     enabled: true
@@ -9,6 +12,3 @@ master:
       - secretName: jenkins-eni-yannig-ovh
         hosts:
           - "jenkins.eni.yannig.ovh"
-
-networkPolicy:
-  enabled: true
