@@ -2,6 +2,8 @@ podTemplate(
   label: "python-builder",
   // Keep docker container started for 10 minutes before deleting it
   idleMinutes: 10,
+  // Affect service account to update develop
+  serviceAccount: 'jenkins-updater',
   // Uncomment to use secret to pull secret image
   // imagePullSecrets: [ 'github-cred' ],
   // Containers to create
