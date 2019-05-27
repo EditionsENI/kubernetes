@@ -1,5 +1,5 @@
 podTemplate(
-  label: "python-builder"
+  label: "python-builder",
   // Keep docker container started for 10 minutes before deleting it
   idleMinutes: 10,
   // Uncomment to use secret to pull secret image
