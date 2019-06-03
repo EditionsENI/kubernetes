@@ -10,3 +10,13 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-staging
     http01: {}
+    dns01:
+      providers:
+        - name: prod-dns
+          clouddns:
+            # A secretKeyRef to a google cloud json service account
+            serviceAccountSecretRef:
+              name: cloud-dns-key
+              key: credentials.json
+            # The project in which to update the DNS zone
+            project: "eni-kubernetes"
