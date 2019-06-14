@@ -20,14 +20,31 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
+{{ if .Values.persistence.enabled }}
+      volumes:
+        - name: mailhog-maildir
+          persistentVolumeClaim:
+            claimName: {{ include "mailhog.name" . }}
+{{ end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8025
               protocol: TCP
+            - name: smtp
+              containerPort: 1025
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: {{ include "mailhog.fullname" . }}
+{{ if .Values.persistence.enabled }}
+          volumeMounts:
+            - mountPath: /maildir
+              name:      mailhog-maildir
+{{ end }}
           livenessProbe:
             httpGet:
               path: /

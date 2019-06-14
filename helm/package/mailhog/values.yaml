@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: nginx
-  tag: stable
+  repository: mailhog/mailhog
+  tag: "v1.0.0"
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -15,7 +15,13 @@ fullnameOverride: ""
 
 service:
   type: ClusterIP
-  port: 80
+  port: 8025
+  smtp:
+    port: 1025
+
+persistence:
+  enabled: true
+  size: 10Mi
 
 ingress:
   enabled: false

@@ -11,6 +11,10 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    - port: {{ .Values.service.smtp.port }}
+      targetPort: smtp
+      protocol: TCP
+      name: smtp
   selector:
     app.kubernetes.io/name: {{ include "mailhog.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
