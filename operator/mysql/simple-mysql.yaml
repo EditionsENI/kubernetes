@@ -5,7 +5,6 @@ metadata:
 spec:
   replicas: 2
   secretName: my-cluster-secret
-  minAvailable: 1
   volumeSpec:
     persistentVolumeClaim:
       accessModes: ["ReadWriteOnce"]
