@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mailhog
+  name: mailhog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mailhog
+  template:
+    metadata:
+      labels:
+        app: mailhog
+    spec:
+      containers:
+      - image: mailhog/mailhog
+        name: mailhog
+        readinessProbe:
+          tcpSocket:
+            port: 1025
+        livenessProbe:
+          tcpSocket:
+            port: 8025
