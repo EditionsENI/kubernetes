@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb
+  labels:
+    app: mariadb
+spec:
+  serviceName: mariadb
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+        - image: mariadb
+          name: mariadb
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name:      mariadb-data
+          envFrom:
+            - configMapRef: { name: mariadb }
+            - secretRef:    { name: mariadb }
+          livenessProbe:
+            exec:
+              command: 
+                - "sh"
+                - "-c"
+                - "mysqladmin status -p$MYSQL_ROOT_PASSWORD"
+          readinessProbe:
+            exec:
+              command: 
+                - "sh"
+                - "-c"
+                - "mysqladmin status -p$MYSQL_ROOT_PASSWORD"
+  volumeClaimTemplates:
+    - metadata:
+        name: mariadb-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 100Mi
