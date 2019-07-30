@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: glances
+  namespace: kube-system
+spec:
+  template:
+    metadata:
+      labels:
+        app: glances
+    spec:
+      volumes:
+        - name: dockersocket
+          hostPath:
+            path: /var/run/docker.sock
+      containers:
+        - name: glances
+          image: nicolargo/glances
+          imagePullPolicy: Always
+          env:
+            - name: "GLANCES_OPT"
+              value: "-w"
+          volumeMounts:
+            - name: dockersocket
+              mountPath: /var/run/docker.sock
