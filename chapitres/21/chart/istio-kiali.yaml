@@ -1,0 +1,17 @@
+kiali:
+  enabled: true
+  createDemoSecret: true
+  contextPath: /
+  dashboard:
+    grafanaURL: https://grafana-istio.eni.yannig.ovh/
+    jaegerURL:  /jaeger
+
+  ingress:
+    enabled: true
+    hosts:
+      - "kiali.eni.yannig.ovh"
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+    tls:
+      - secretName: kiali-eni-yannig-ovh
