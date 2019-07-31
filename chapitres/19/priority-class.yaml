@@ -1,0 +1,13 @@
+apiVersion: scheduling.k8s.io/v1beta1
+kind: PriorityClass
+metadata:
+  name: monitoring-node
+description: Priority for monitoring nodes.
+value: 101000
+---
+apiVersion: scheduling.k8s.io/v1beta1
+kind: PriorityClass
+metadata:
+  name: monitoring-cluster
+description: Priority for monitoring cluster.
+value: 100000
