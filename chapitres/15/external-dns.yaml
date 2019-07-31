@@ -1,0 +1,19 @@
+rbac:
+  create: true
+
+provider: google # Ou azure ou aws (par défaut = aws)
+
+# A renseigner pour un hébergement avec Google
+google:
+  project: "eni-kubernetes"
+  serviceAccountSecret: "cloud-dns-key"
+
+# A renseigner pour un hébergement avec Azure
+azure:
+  secretName: "cloud-dns-key"
+
+# A renseigner pour un hébergement avec Amazon
+aws:
+  region:    "eu-central-1"
+  secretKey: "AKFKXXXXXXXXXXXX"
+  accessKey: "YxYxYxYxYxYxYxYxYxYxYxYx"
