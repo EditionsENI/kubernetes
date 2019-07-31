@@ -1,0 +1,14 @@
+rbac:
+  create: true
+
+master:
+  ingress:
+    enabled: true
+    hostName: "jenkins.eni.yannig.ovh"
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+    tls:
+      - secretName: jenkins-eni-yannig-ovh
+        hosts:
+          - "jenkins.eni.yannig.ovh"
