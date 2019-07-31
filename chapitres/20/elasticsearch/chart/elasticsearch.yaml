@@ -1,0 +1,18 @@
+data:
+  resources:
+    limits:
+      cpu: "1"
+      memory: "2048Mi"
+    requests:
+      cpu: "200m"
+      memory: "1536Mi"
+
+master:
+  resources:
+    limits:
+      cpu: "1"
+      memory: "1024Mi"
+    requests:
+      cpu: "100m"
+      memory: "512Mi"
+

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    grafana_datasource: "1"
+  name: prometheus-operator-elasticsearch-datasource
+  namespace: monitoring
+data:
+  elasticsearch.yaml: |-
+    apiVersion: 1
+    datasources:
+      - name: Elasticsearch
+        type: elasticsearch
+        access: proxy
+        database: "[logstash-]YYYY.MM.DD"
+        url: http://elasticsearch-client.elasticsearch:9200
+        jsonData:
+          interval: Daily
+          timeField: "@timestamp"
+          esVersion: 60
