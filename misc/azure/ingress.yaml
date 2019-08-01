@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mailhog
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+  - host: "mailhog.164b458838564988b56c.francecentral.aksapp.io"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: mailhog
+          servicePort: 8025

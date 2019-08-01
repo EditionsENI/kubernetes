@@ -1,0 +1,15 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: simple-cluster
+spec:
+  teamId: "simple"
+  volume:
+    size: 1Gi
+  numberOfInstances: 2
+  users:
+    my-user: ["superuser", "createdb"]
+  databases:
+    my-db: my-user
+  postgresql:
+    version: "10"
