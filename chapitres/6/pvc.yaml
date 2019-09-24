@@ -1,10 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mariadb-data
+  name: pvc-mailhog
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: hdd
   resources:
     requests:
-      storage: 100Mi
+      storage: 10Mi

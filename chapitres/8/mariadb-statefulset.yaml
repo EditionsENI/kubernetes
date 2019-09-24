@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -18,12 +17,20 @@ spec:
       containers:
         - image: mariadb
           name: mariadb
+          imagePullPolicy: IfNotPresent
+          command: ["/mariadb-init-db/start.sh"]
           volumeMounts:
             - mountPath: /var/lib/mysql
               name:      mariadb-data
+            - mountPath: /mariadb-init-db
+              name:      mariadb-init-db
           envFrom:
             - configMapRef: { name: mariadb }
             - secretRef:    { name: mariadb }
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/mariadb-init-db/stop-db.sh"]
           livenessProbe:
             exec:
               command: 
@@ -36,6 +43,11 @@ spec:
                 - "sh"
                 - "-c"
                 - "mysqladmin status -p$MYSQL_ROOT_PASSWORD"
+      volumes:
+        - name: mariadb-init-db
+          configMap:
+            name: mariadb-init-db
+            defaultMode: 0755
   volumeClaimTemplates:
     - metadata:
         name: mariadb-data

@@ -1,10 +1,9 @@
----
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mailhog
   labels:
     app: mailhog
+  name: mailhog
 spec:
   replicas: 1
   selector:
@@ -15,17 +14,13 @@ spec:
       labels:
         app: mailhog
     spec:
-      volumes:
-        - name: mailhog-maildir
-          persistentVolumeClaim: { claimName: pvc-mailhog }
       containers:
-        - image: mailhog/mailhog
-          name: mailhog
-          imagePullPolicy: IfNotPresent
-          volumeMounts:
-            - mountPath: /maildir
-              name:      mailhog-maildir
-          command:
-            - "MailHog"
-            - "-storage=maildir"
-            - "-maildir-path=/maildir"
+      - image: mailhog/mailhog
+        name: mailhog
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

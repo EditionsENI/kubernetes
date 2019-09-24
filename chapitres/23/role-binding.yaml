@@ -1,13 +1,12 @@
 apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-  name: jenkins-updater-binding
-  namespace: develop
+  name: tiller-cluster-rule
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: jenkins-updater
+  kind: ClusterRole
+  name: cluster-admin
 subjects:
   - kind: ServiceAccount
-    name: jenkins-updater
-    namespace: jenkins
+    name: tiller
+    namespace: kube-system
