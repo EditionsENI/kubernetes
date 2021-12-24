@@ -24,18 +24,14 @@ spec:
           envFrom:
             - configMapRef: { name: mariadb }
             - secretRef:    { name: mariadb }
-          livenessProbe:
+          startupProbe: &probe
             exec:
               command: 
                 - "sh"
                 - "-c"
                 - "mysqladmin status -p$MYSQL_ROOT_PASSWORD"
-          readinessProbe:
-            exec:
-              command: 
-                - "sh"
-                - "-c"
-                - "mysqladmin status -p$MYSQL_ROOT_PASSWORD"
+          livenessProbe: *probe
+          readinessProbe: *probe
   volumeClaimTemplates:
     - metadata:
         name: mariadb-data
