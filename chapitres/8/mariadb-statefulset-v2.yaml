@@ -28,9 +28,15 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/mysql
               name:      mariadb-data
+            - mountPath: /mariadb-init-db
+              name:      mariadb-init-db
           envFrom:
             - configMapRef: { name: mariadb }
             - secretRef:    { name: mariadb }
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/mariadb-init-db/stop-db.sh"]
           startupProbe: &probe
             exec:
               command:
@@ -39,6 +45,11 @@ spec:
                 - "mysqladmin status -p$MYSQL_ROOT_PASSWORD"
           livenessProbe: *probe
           readinessProbe: *probe
+      volumes:
+        - name: mariadb-init-db
+          configMap:
+            name: mariadb-init-db
+            defaultMode: 0755
   volumeClaimTemplates:
     - metadata:
         name: mariadb-data

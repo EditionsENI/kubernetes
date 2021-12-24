@@ -33,7 +33,7 @@ spec:
                 command: ["/mariadb-init-db/stop-db.sh"]
           startupProbe: &probe
             exec:
-              command: 
+              command:
                 - "sh"
                 - "-c"
                 - "mysqladmin status -p$MYSQL_ROOT_PASSWORD"
