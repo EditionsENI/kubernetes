@@ -17,11 +17,9 @@ spec:
       containers:
       - image: yannig/eni-flask-healthcheck
         name: flask-healthcheck
-        readinessProbe:
+        startupProbe: &probe
           httpGet:
             path: /healthcheck
             port: 5000
-        livenessProbe:
-          httpGet:
-            path: /healthcheck
-            port: 5000
+        readinessProbe: *probe
+        livenessProbe: *probe
