@@ -37,18 +37,14 @@ spec:
             preStop:
               exec:
                 command: ["/mariadb-init-db/stop-db.sh"]
-          livenessProbe:
+          startupProbe: &probe
             exec:
               command: 
                 - "sh"
                 - "-c"
                 - "mysqladmin status -p$MYSQL_ROOT_PASSWORD"
-          readinessProbe:
-            exec:
-              command: 
-                - "sh"
-                - "-c"
-                - "mysqladmin status -p$MYSQL_ROOT_PASSWORD"
+          livenessProbe: *probe
+          readinessProbe: *probe
       volumes:
         - name: mariadb-init-db
           configMap:
