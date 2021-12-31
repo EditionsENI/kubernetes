@@ -1,9 +1,12 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: glances
   namespace: kube-system
 spec:
+  selector:
+    matchLabels:
+      app: glances
   template:
     metadata:
       labels:
@@ -12,10 +15,13 @@ spec:
       tolerations:
         - effect: NoSchedule
           operator: Exists
+      hostPID: true
+      hostIPC: true
+      hostNetwork: true
       volumes:
-        - name: dockersocket
+        - name: hostfs
           hostPath:
-            path: /var/run/docker.sock
+            path: /
       containers:
         - name: glances
           image: nicolargo/glances
@@ -24,5 +30,5 @@ spec:
             - name: "GLANCES_OPT"
               value: "-w"
           volumeMounts:
-            - name: dockersocket
-              mountPath: /var/run/docker.sock
+            - name: hostfs
+              mountPath: /hostfs
