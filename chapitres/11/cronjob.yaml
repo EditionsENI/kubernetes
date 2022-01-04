@@ -1,4 +1,4 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: kube-hunter
@@ -16,10 +16,10 @@ spec:
           containers:
           - name: kube-hunter
             image: aquasec/kube-hunter 
-            command: ["python", "kube-hunter.py"]
+            command: ["kube-hunter"]
             args:
               - "--pod"
               - "--token"
-              - "eyJ0e...kU4jE0"
+              - "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0aW1lIjoxNjQwOTUwNzE3LjgyMDExODQsImVtYWlsIjoieWFubmlnLnBlcnJlQGxhcG9zdGUubmV0IiwiciI6IjlmOWQzNzI3In0.XUlw9V_LpI_uIe_MEX2UP7isxkf-LI4edj9YxIKpPuE"
           restartPolicy: Never
       backoffLimit: 4
