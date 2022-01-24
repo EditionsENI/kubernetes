@@ -15,7 +15,7 @@ spec:
         spec:
           containers:
           - name: kube-hunter
-            image: aquasec/kube-hunter 
+            image: aquasec/kube-hunter:aqua
             command: ["kube-hunter"]
             args:
               - "--pod"
