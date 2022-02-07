@@ -1,0 +1,42 @@
+# https://github.com/kubernetes/ingress-nginx/tree/master/charts/ingress-nginx
+
+controller:
+  config:
+    # Preserve source ip
+    use-forwarded-headers: true
+
+  # Resources limitations/reservations
+  resources:
+    requests:
+      cpu: 100m
+      memory: 90Mi
+    limits:
+      cpu: 500m
+      memory: 120Mi
+
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+              - ingress-nginx
+          topologyKey: kubernetes.io/hostname
+
+  # high availability
+  replicaCount: 2
+
+  # Default ingress
+  watchIngressWithoutClass: true
+  ingressClassResource:
+    default: true
+
+  service:
+    # Needed annotations for AWS
+    # annotations:
+    #   service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    externalTrafficPolicy: Local

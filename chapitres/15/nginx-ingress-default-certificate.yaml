@@ -1,0 +1,5 @@
+---
+# Set default certificate for Nginx
+controller:
+  extraArgs:
+    default-ssl-certificate: "default/eni-yannig-ovh-prod-tls"
