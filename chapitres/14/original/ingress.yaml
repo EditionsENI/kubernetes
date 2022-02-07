@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: mailhog
@@ -7,7 +7,10 @@ spec:
   - host: "mailhog.eni.yannig.ovh"
     http:
       paths:
-      - path: /*
+      - path: /
+        pathType: Prefix
         backend:
-          serviceName: mailhog
-          servicePort: 8025
+          service:
+            name: mailhog
+            port:
+              number: 8025

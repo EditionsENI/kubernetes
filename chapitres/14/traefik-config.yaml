@@ -1,13 +1,51 @@
-rbac:
-  enabled: true
+---
+# https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
 
-ssl:
+ingressClass:
   enabled: true
+  # Set this value to use Traefik as a default Ingress controller
+  # isDefaultClass: true
 
-kubernetes:
-  ingressEndpoint:
-    useDefaultPublishedService: true
+# Update Ingress status
+providers:
+  kubernetesIngress:
+    publishedService:
+      enabled: true
+  # Set this parameter to change the ingress class name
+  # kubernetesCRD:
+    # ingressClass: traefik-internal
 
-dashboard:
-  enabled: true
-  domain: traefik.admin.eni.yannig.ovh
+# enable access logs
+logs:
+  # Traefik log level
+  # general:
+    # level: DEBUG
+  access:
+    enabled: true
+
+# Set pods count to 2 for high availability
+deployment:
+  replicas: 2
+
+# Pod anti affinity
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+                - "traefik"
+          topologyKey: kubernetes.io/hostname
+
+# Resources limitations/reservations
+resources:
+  requests:
+    cpu: "30m"
+    memory: "50Mi"
+  limits:
+    cpu: "100m"
+    memory: "60Mi"

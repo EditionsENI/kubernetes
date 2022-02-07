@@ -1,23 +1,26 @@
-# apiVersion: certmanager.k8s.io/v1alpha1 (version < 0.11)
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-staging
-  namespace: kube-system
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: yannig.perre@gmail.com
+    email: mon.adresse@email.com
     privateKeySecretRef:
       name: letsencrypt-staging
-    http01: {}
-    dns01:
-      providers:
-        - name: prod-dns
-          clouddns:
+    solvers:
+      - http01:
+          ingress: {}
+          # Set class to use a specific http entrypoint
+          # class: nginx
+      - dns01:
+          cloudDNS:
             # A secretKeyRef to a google cloud json service account
             serviceAccountSecretRef:
               name: cloud-dns-key
               key: credentials.json
             # The project in which to update the DNS zone
             project: "eni-kubernetes"
+        selector:
+          dnsZones:
+            - eni.yannig.ovh

@@ -1,19 +1,25 @@
+# All available values:
+# https://github.com/bitnami/charts/blob/master/bitnami/external-dns/values.yaml
+
 rbac:
   create: true
 
-provider: google # Ou azure ou aws (par défaut = aws)
+provider: google # or azure or aws (default = aws)
 
-# A renseigner pour un hébergement avec Google
+# Google cloudDNS credentials
 google:
   project: "eni-kubernetes"
   serviceAccountSecret: "cloud-dns-key"
 
-# A renseigner pour un hébergement avec Azure
+# Azure DNS credentials
 azure:
   secretName: "cloud-dns-key"
 
-# A renseigner pour un hébergement avec Amazon
+# AWS route53 credentials
 aws:
   region:    "eu-central-1"
   secretKey: "AKFKXXXXXXXXXXXX"
   accessKey: "YxYxYxYxYxYxYxYxYxYxYxYx"
+
+# TXT prefix
+txtPrefix: "k8s-"
