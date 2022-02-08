@@ -5,10 +5,10 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: wordpress-wordpress
+      app.kubernetes.io/name: wordpress
   policyTypes: ["Ingress"]
   ingress:
     - from:
         - namespaceSelector:
             matchLabels:
-              name: nginx-ingress
+              role: ingress

@@ -9,4 +9,4 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              name: nginx-ingress
+              role: ingress
