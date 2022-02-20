@@ -1,9 +1,0 @@
-global:
-  deployEnv: prod
-
-efsProvisioner:
-  efsFileSystemId: fs-814806d8d
-  awsRegion: eu-central-1
-  path: /efs
-  storageClass:
-    reclaimPolicy: Retain
