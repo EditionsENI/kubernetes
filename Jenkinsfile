@@ -17,8 +17,8 @@ podTemplate(
       resourceLimitMemory: "250M"
     ),
     containerTemplate(
-      name: 'docker',
-      image: 'docker:18.06',
+      name: 'kaniko',
+      image: 'gcr.io/kaniko-project/executor:v1.8.0-debug',
       ttyEnabled: true,
       command: 'cat'
     ),
@@ -33,10 +33,6 @@ podTemplate(
     secretVolume(
       secretName: 'docker-hub-cred',
       mountPath: '/home/jenkins/docker'
-    ),
-    hostPathVolume(
-      hostPath: '/var/run/docker.sock',
-      mountPath: '/var/run/docker.sock'
     )
   ]
 ) {
@@ -53,19 +49,17 @@ podTemplate(
         sh("pylint flask-healthcheck --exit-zero")
       }
     }
-    container('docker') {
+    container('kaniko') {
       def imageName = "yannig/flask-healthcheck:latest"
-      stage('build') {
-        sh("cd flask-healthcheck && docker build -t ${imageName} .")
-      }
       stage('login') {
         sh('''
-          awk -F'"' '{ print "docker login --"$6"="$8" --"$10"="$12 }' /home/jenkins/docker/.dockerconfigjson > login.sh
-          chmod +x login.sh && ./login.sh ; rm login.sh
+          mkdir -p /kaniko/.docker
+          cp /home/jenkins/docker/.dockerconfigjson /kaniko/.docker/config.json
+          sed -i 's|docker.io|https://index.docker.io/v1/|g' /kaniko/.docker/config.json
           ''')
       }
-      stage('push') {
-        sh("docker push ${imageName}")
+      stage('build') {
+        sh("/kaniko/executor --context flask-healthcheck --destination docker.io/${imageName}")
       }
     }
     container('kubectl') {
