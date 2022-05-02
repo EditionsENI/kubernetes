@@ -1,11 +1,11 @@
-apiVersion: networking.istio.io/v1alpha3
+apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
   name: mailhog-gateway
   namespace: test-istio
 spec:
   selector:
-    istio: ingressgateway
+    istio: ingress
   servers:
     - port:
         number: 80
@@ -23,4 +23,4 @@ spec:
         - "test.eni.yannig.ovh"
       tls:
         mode: SIMPLE
-        credentialName: "test-eni-yannig-ovh-prod-tls"
+        credentialName: "eni.yannig.ovh"

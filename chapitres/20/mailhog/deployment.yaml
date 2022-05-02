@@ -1,9 +1,13 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mailhog
   namespace: test-istio
 spec:
+  selector:
+    matchLabels:
+      app: mailhog
+      version: v1
   template:
     metadata:
       labels:

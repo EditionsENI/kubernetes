@@ -1,11 +1,10 @@
-# apiVersion: certmanager.k8s.io/v1alpha1 (version < 0.11)
-apiVersion: cert-manager.io/v1alpha2
+apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: eni-yannig-ovh
   namespace: istio-system
 spec:
-  secretName: test-eni-yannig-ovh-prod-tls
+  secretName: eni.yannig.ovh
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
@@ -13,10 +12,3 @@ spec:
   dnsNames:
     - "eni.yannig.ovh"
     - "*.eni.yannig.ovh"
-  acme:
-    config:
-      - http01:
-          ingressClass: istio
-        domains:
-          - "eni.yannig.ovh"
-          - "*.eni.yannig.ovh"
