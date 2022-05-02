@@ -1,9 +1,6 @@
 # All available values:
 # https://github.com/bitnami/charts/blob/master/bitnami/external-dns/values.yaml
 
-rbac:
-  create: true
-
 provider: google # or azure or aws (default = aws)
 
 # Google cloudDNS credentials
