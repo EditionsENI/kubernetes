@@ -1,0 +1,12 @@
+# Basic informations
+cluster_name: "eni-test"
+region_name: "eu-central-1"
+
+# Http server is disabled
+http_server_toggle: "'Off'"
+http_server_port: "'8080'"
+
+# Read from the tail of the file, not the beginning
+# Invert both value to read already existing file
+read_from_head: "'Off'"
+read_from_tail: "'On'"

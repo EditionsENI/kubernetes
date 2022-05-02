@@ -1,9 +1,0 @@
-rbac:
-  create: true
-
-awsRegion: eu-west-3
-
-awsAccessKeyId: AKIAXXUXXJXXZXXVXXIN
-awsSecretAccessKey: ixkxxxdHw
-
-logGroupName: /aws/eks/cluster-eni/pods

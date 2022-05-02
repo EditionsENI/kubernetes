@@ -12,9 +12,9 @@ data:
       - name: Elasticsearch
         type: elasticsearch
         access: proxy
-        database: "[logstash-]YYYY.MM.DD"
-        url: http://elasticsearch-client.elasticsearch:9200
+        database: "[filebeat-*-]YYYY.MM.DD-*"
+        url: http://elasticsearch-master.elasticsearch:9200
         jsonData:
           interval: Daily
           timeField: "@timestamp"
-          esVersion: 60
+          esVersion: "7.10.0"
