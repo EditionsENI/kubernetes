@@ -2,8 +2,8 @@ alertmanager:
   ingress:
     enabled: true
     annotations:
-      kubernetes.io/ingress.class: nginx
       kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
       - "alertmanager.eni.yannig.ovh"
     tls:
@@ -38,8 +38,8 @@ grafana:
   ingress:
     enabled: true
     annotations:
-      kubernetes.io/ingress.class: nginx
       kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
       - "grafana.eni.yannig.ovh"
     tls:
