@@ -1,2 +1,3 @@
 config
 *.tar.gz
+.idea
