@@ -1,0 +1,24 @@
+apiVersion: kube.cloud.ovh.com/v1alpha1
+kind: NodePool
+metadata:
+  name: statelessworkload
+spec:
+  antiAffinity: true
+  autoscale: true
+  desiredNodes: 1
+  flavor: b2-7
+  maxNodes: 5
+  minNodes: 0
+  monthlyBilled: false
+  template:
+    metadata:
+      labels:
+        workload: stateless
+      annotations: {}
+      finalizers: []
+    spec:
+      unschedulable: false
+      taints:
+        - effect: NoSchedule
+          key: kind
+          value: spot
