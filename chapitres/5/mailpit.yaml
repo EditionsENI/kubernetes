@@ -2,22 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: mailhog
-  name: mailhog
+    app: mailpit
+  name: mailpit
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mailhog
+      app: mailpit
   template:
     metadata:
       labels:
-        app: mailhog
+        app: mailpit
     spec:
       priorityClassName: custom-priority
       containers:
-      - image: mailhog/mailhog
-        name: mailhog
+      - image: axllent/mailpit
+        name: mailpit
         resources:
           requests:
             memory: "64Mi"
