@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailpit
+  labels:
+    app: mailpit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mailpit
+  template:
+    metadata:
+      labels:
+        app: mailpit
+    spec:
+      volumes:
+        - name: mailpit-db
+          nfs:
+            server: 192.168.0.16
+            path: /tmp/mailpit
+      containers:
+        - image: axllent/mailpit
+          name: mailpit
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /storage
+              name:      mailpit-db
+          command:
+            - "/mailpit"
+            - "--db-file=/storage/mailpit.db"

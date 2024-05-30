@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailpit
+  labels:
+    app: mailpit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mailpit
+  template:
+    metadata:
+      labels:
+        app: mailpit
+    spec:
+      volumes:
+        - name: maildir
+          persistentVolumeClaim: { claimName: pvc-mailpit }
+      initContainers:
+        - &init-pv
+          name: init-pv
+          image: axllent/mailpit
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /maildir
+              name: maildir
+          command: ["chown", "-R", "1000", "/maildir"]
+      containers:
+        - <<: *init-pv
+          name: mailpit
+          securityContext:
+            runAsUser: 1000
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+          command:
+            - "./mailpit"
+            - "--db-file=/maildir/mailpit.db"

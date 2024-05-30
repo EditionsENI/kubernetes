@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-mailhog
+  name: pv-mailpit
 spec:
   accessModes:
     - ReadWriteOnce
@@ -9,4 +9,4 @@ spec:
   capacity:
     storage: 10Mi
   hostPath:
-    path: /tmp/pv-mailhog
+    path: /tmp/pv-mailpit
