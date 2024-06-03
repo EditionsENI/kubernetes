@@ -16,7 +16,7 @@ spec:
         app: mariadb
     spec:
       containers:
-        - image: mariadb
+        - image: docker.io/library/mariadb
           name: mariadb
           volumeMounts:
             - mountPath: /var/lib/mysql
@@ -29,7 +29,7 @@ spec:
               command: 
                 - "sh"
                 - "-c"
-                - "mysqladmin status -p$MYSQL_ROOT_PASSWORD"
+                - "mariadbadmin status -p$MARIADB_ROOT_PASSWORD"
           livenessProbe: *probe
           readinessProbe: *probe
   volumeClaimTemplates:

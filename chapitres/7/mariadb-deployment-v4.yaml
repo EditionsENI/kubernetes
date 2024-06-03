@@ -17,11 +17,11 @@ spec:
         - name: mariadb-data
           persistentVolumeClaim: { claimName: mariadb-data }
       containers:
-        - image: mariadb
+        - image: docker.io/library/mariadb
           name: mariadb
           volumeMounts:
             - mountPath: /var/lib/mysql
               name:      mariadb-data
           env:
-            - name: MYSQL_ROOT_PASSWORD
+            - name: MARIADB_ROOT_PASSWORD
               value: mot-de-passe-root

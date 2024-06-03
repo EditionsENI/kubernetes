@@ -17,7 +17,7 @@ spec:
         - name: mariadb-data
           persistentVolumeClaim: { claimName: mariadb-data }
       containers:
-        - image: mariadb
+        - image: docker.io/library/mariadb
           name: mariadb
           volumeMounts:
             - mountPath: /var/lib/mysql

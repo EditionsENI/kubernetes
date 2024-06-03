@@ -14,5 +14,5 @@ spec:
         app: mariadb
     spec:
       containers:
-      - image: mariadb
+      - image: docker.io/library/mariadb
         name: mariadb
