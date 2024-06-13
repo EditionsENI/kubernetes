@@ -36,7 +36,7 @@ spec:
               command:
                 - "sh"
                 - "-c"
-                - "mysqladmin status -p$MYSQL_ROOT_PASSWORD"
+                - "mariadb-admin status -p$MARIADB_ROOT_PASSWORD"
           livenessProbe: *probe
           readinessProbe: *probe
       volumes:

@@ -24,7 +24,7 @@ spec:
             - -c
             - >-
                 docker-entrypoint.sh --log-bin --binlog-format=row
-                  --log-basename=master --binlog-do-db=$MYSQL_DATABASE
+                  --log-basename=master --binlog-do-db=$MARIADB_DATABASE
           volumeMounts:
             - mountPath: /var/lib/mysql
               name:      mariadb-data
@@ -36,7 +36,7 @@ spec:
               command:
                 - "sh"
                 - "-c"
-                - "mysqladmin status -p$MYSQL_ROOT_PASSWORD"
+                - "mariadb-admin status -p$MARIADB_ROOT_PASSWORD"
           livenessProbe: *probe
           readinessProbe: *probe
   volumeClaimTemplates:

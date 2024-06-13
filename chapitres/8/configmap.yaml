@@ -4,8 +4,8 @@ kind: ConfigMap
 metadata:
   name: mariadb
 data:
-  MYSQL_DATABASE:      test
-  MYSQL_USER:          test
+  MARIADB_DATABASE:      test
+  MARIADB_USER:          test
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -17,12 +17,12 @@ data:
     INDEX=`hostname | awk -F- '{ print $2 }'`
     ID=`expr $INDEX + 1`
     OPTIONS="--server-id=$ID --log-bin --log-basename=master"
-    OPTIONS="$OPTIONS --binlog-do-db=$MYSQL_DATABASE"
-    OPTIONS="$OPTIONS --binlog-format=row --replicate-do-db=$MYSQL_DATABASE"
+    OPTIONS="$OPTIONS --binlog-do-db=$MARIADB_DATABASE"
+    OPTIONS="$OPTIONS --binlog-format=row --replicate-do-db=$MARIADB_DATABASE"
     /mariadb-init-db/configure-sync.sh
     case `hostname` in
       mariadb-0) : ;;
-      *) unset MYSQL_USER MYSQL_PASSWORD ;;
+      *) unset MARIADB_USER MARIADB_PASSWORD ;;
     esac
     exec docker-entrypoint.sh $OPTIONS
   replication-user.sql: |-
@@ -47,7 +47,7 @@ data:
     fi
     # Sinon, configuration de l'esclave
     echo "show master status;" | \
-      mysql -h mariadb-0.mariadb -p$MYSQL_ROOT_PASSWORD > /tmp/status
+      mariadb -h mariadb-0.mariadb -p$MARIADB_ROOT_PASSWORD > /tmp/status
     FILE=`    awk '/master-bin/ { print $1}' /tmp/status`
     POSITION=`awk '/master-bin/ { print $2}' /tmp/status`
     rm /tmp/status
@@ -60,4 +60,4 @@ data:
     STOP SLAVE;
     SHUTDOWN;
   stop-db.sh: |-
-    mysql -p$MYSQL_ROOT_PASSWORD /docker-entrypoint-initdb.d/stop-db.sql
+    mariadb -p$MARIADB_ROOT_PASSWORD /docker-entrypoint-initdb.d/stop-db.sql
