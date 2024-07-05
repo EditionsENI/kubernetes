@@ -2,30 +2,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mailhog
+  name: mailpit
   labels:
-    app: mailhog
+    app: mailpit
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mailhog
+      app: mailpit
   template:
     metadata:
       labels:
-        app: mailhog
+        app: mailpit
     spec:
       volumes:
-        - name: mailhog-maildir
-          persistentVolumeClaim: { claimName: pvc-mailhog }
+        - name: maildir
+          persistentVolumeClaim: { claimName: pvc-mailpit }
       containers:
-        - image: mailhog/mailhog
-          name: mailhog
+        - image: axllent/mailpit
+          name: mailpit
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /maildir
-              name:      mailhog-maildir
+              name:      maildir
           command:
-            - "MailHog"
-            - "-storage=maildir"
-            - "-maildir-path=/maildir"
+            - "./mailpit"
+            - "--db-file=/maildir/mailpit.db"

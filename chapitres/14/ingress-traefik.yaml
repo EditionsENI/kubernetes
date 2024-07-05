@@ -1,17 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mailhog-traefik
+  name: mailpit-traefik
 spec:
   ingressClassName: traefik
   rules:
-  - host: "mailhog-traefik.eni.yannig.ovh"
+  - host: "mailpit-traefik.eni.yannig.ovh"
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: mailhog
+            name: mailpit
             port:
               number: 8025

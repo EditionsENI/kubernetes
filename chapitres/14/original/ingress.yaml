@@ -1,16 +1,16 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mailhog
+  name: mailpit
 spec:
   rules:
-  - host: "mailhog.eni.yannig.ovh"
+  - host: "mailpit.eni.yannig.ovh"
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: mailhog
+            name: mailpit
             port:
               number: 8025

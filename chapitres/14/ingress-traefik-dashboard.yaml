@@ -1,18 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: traefik-dashboard
-  namespace: traefik
+  name: mailpit-dashboard
+  namespace: mailpit
 spec:
   ingressClassName: nginx
   rules:
-  - host: "traefik.admin.eni.yannig.ovh"
+  - host: "mailpit.admin.eni.yannig.ovh"
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: traefik
+            name: mailpit
             port:
               name: web
