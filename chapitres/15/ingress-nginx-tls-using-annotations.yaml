@@ -1,23 +1,23 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mailhog
+  name: mailpit
   annotations:
     kubernetes.io/tls-acme: 'true'
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
   rules:
-  - host: "mailhog.eni.yannig.ovh"
+  - host: "mailpit.eni.yannig.ovh"
     http:
       paths:
       - path: /
         pathType: "Prefix"
         backend:
           service:
-            name: mailhog
+            name: mailpit
             port:
               name: http
   tls:
-    - secretName: "mailhog.eni.yannig.ovh"
-      hosts: ["mailhog.eni.yannig.ovh"]
+    - secretName: "mailpit.eni.yannig.ovh"
+      hosts: ["mailpit.eni.yannig.ovh"]

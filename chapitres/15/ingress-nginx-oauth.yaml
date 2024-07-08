@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mailhog
+  name: mailpit
   annotations:
     nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
     nginx.ingress.kubernetes.io/auth-signin: >-
@@ -9,33 +9,33 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "mailhog.eni.yannig.ovh"
+  - host: "mailpit.eni.yannig.ovh"
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: mailhog
+            name: mailpit
             port:
               number: 8025
   tls:
     - secretName: eni-yannig-ovh-prod-tls
       hosts:
-        - "mailhog.eni.yannig.ovh"
+        - "mailpit.eni.yannig.ovh"
 
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mailhog-oauth2-proxy
+  name: mailpit-oauth2-proxy
   namespace: ingress-nginx
   annotations:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
 spec:
   rules:
-    - host: "mailhog.eni.yannig.ovh"
+    - host: "mailpit.eni.yannig.ovh"
       http:
         paths:
         - path: /oauth2
@@ -47,4 +47,4 @@ spec:
                 number: 80
   tls:
     - hosts:
-        - "mailhog.eni.yannig.ovh"
+        - "mailpit.eni.yannig.ovh"
