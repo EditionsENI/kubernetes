@@ -2,25 +2,25 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: mailhog
-  name: mailhog
+    app: mailpit
+  name: mailpit
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mailhog
+      app: mailpit
   template:
     metadata:
       labels:
-        app: mailhog
+        app: mailpit
     spec:
       containers:
-      - image: mailhog/mailhog
-        name: mailhog
+      - image: axllent/mailpit
+        name: mailpit
         resources:
           requests:
             memory: "64Mi"
-            cpu: "250m"
+            cpu: "10m"
           limits:
             memory: "128Mi"
-            cpu: "500m"
+            cpu: "10m"

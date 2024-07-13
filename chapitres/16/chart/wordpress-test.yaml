@@ -8,3 +8,9 @@ ingress:
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
   hostname: "wordpress.eni.yannig.ovh"
+
+mariadb:
+  networkPolicy: &disable
+    enabled: false
+networkPolicy: *disable
+readinessProbe: *disable
