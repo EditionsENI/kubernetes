@@ -1,0 +1,12 @@
+---
+resources:
+  limits:
+    cpu: "1"
+    memory: "2048Mi"
+  requests:
+    cpu: "200m"
+    memory: "1536Mi"
+
+extraEnvs:
+  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+    value: My-Str0ng-P@ssw0rd!

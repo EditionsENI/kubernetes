@@ -1,0 +1,23 @@
+---
+# https://github.com/fluent/helm-charts/blob/main/charts/fluent-bit/values.yaml
+
+tolerations:
+  - effect: "NoSchedule"
+    key: node-role.kubernetes.io/master
+
+config:
+  outputs: |-
+    [OUTPUT]
+        Name  opensearch
+        Match *
+        Host  opensearch-cluster-master
+
+        tls On
+        tls.verify Off
+        http_User admin
+        http_Passwd My-Str0ng-P@ssw0rd!
+
+        Suppress_Type_Name On
+        Time_Key        @timestamp
+        Logstash_Format On
+        Replace_Dots    On

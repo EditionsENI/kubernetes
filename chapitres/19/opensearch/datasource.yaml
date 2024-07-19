@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    grafana_datasource: "1"
+  name: prometheus-operator-opensearch-datasource
+  namespace: monitoring
+data:
+  opensearch.yaml: |-
+    apiVersion: 1
+    datasources:
+      - name: opensearch
+        type: elasticsearch
+        access: proxy
+        url: https://opensearch-cluster-master.opensearch:9200
+        basicAuth: true
+        basicAuthUser: "admin"                         
+        jsonData:
+          interval: Daily
+          index: "[logstash-]YYYY.MM.DD"
+          timeField: "@timestamp"
+          esVersion: "7.10.0"
+          tlsSkipVerify: true
+        secureJsonData:
+          basicAuthPassword: My-Str0ng-P@ssw0rd!
