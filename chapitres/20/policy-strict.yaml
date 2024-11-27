@@ -1,11 +1,11 @@
-apiVersion: "security.istio.io/v1beta1"
+apiVersion: "security.istio.io/v1"
 kind: "PeerAuthentication"
 metadata:
-  name: "mailhog-istio-client-mtls-strict"
+  name: "mailpit-istio-client-mtls-strict"
   namespace: "test-istio"
 spec:
   selector:
     matchLabels:
-      app: mailhog
+      app: mailpit
   mtls:
     mode: STRICT

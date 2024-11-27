@@ -1,0 +1,28 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: gateway
+  namespace: istio-ingress
+spec:
+  gatewayClassName: istio
+  listeners:
+    - &default
+      name: default
+      hostname: "*.eni.yannig.ovh"
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: All
+    - <<: *default
+      name: tls
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            group: ""
+            name: eni.yannig.ovh
+            namespace: istio-system

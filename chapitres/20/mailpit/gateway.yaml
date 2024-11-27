@@ -1,7 +1,7 @@
-apiVersion: networking.istio.io/v1beta1
+apiVersion: networking.istio.io/v1
 kind: Gateway
 metadata:
-  name: mailhog-gateway
+  name: mailpit-gateway
   namespace: test-istio
 spec:
   selector:
@@ -9,7 +9,7 @@ spec:
   servers:
     - port:
         number: 80
-        name: http2-mailhog
+        name: http2-mailpit
         protocol: HTTP2
       hosts:
         - "test.eni.yannig.ovh"
@@ -17,7 +17,7 @@ spec:
         httpsRedirect: true
     - port:
         number: 443
-        name: https-mailhog
+        name: https-mailpit
         protocol: HTTPS
       hosts:
         - "test.eni.yannig.ovh"

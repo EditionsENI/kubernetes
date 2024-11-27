@@ -1,8 +1,9 @@
-rbac:
-  create: true
+# All available values:
+# https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/values.yaml
 
-provider: google
+provider: google # or azure or aws (default = aws)
 
+# Google cloudDNS credentials
 google:
   project: "eni-kubernetes"
   serviceAccountSecret: "cloud-dns-key"
@@ -11,3 +12,7 @@ sources:
   - service
   - ingress
   - istio-gateway
+  - gateway-httproute
+
+# TXT prefix
+txtPrefix: "k8s-"

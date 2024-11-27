@@ -1,0 +1,15 @@
+---
+resources:
+  - ingress-nginx.yaml
+
+patches:
+  - target:
+      name: mailpit
+      kind: Ingress
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: mailpit-traefik.eni.yannig.ovh
+      - op: replace
+        path: /spec/ingressClassName
+        value: traefik

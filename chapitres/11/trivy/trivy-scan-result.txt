@@ -1,0 +1,153 @@
+2024-07-26T10:00:55+02:00       INFO    Node scanning is enabled
+2024-07-26T10:00:55+02:00       INFO    If you want to disable Node scanning via an in-cluster Job, please try '--disable-node-collector' to disable the Node-Collector job.
+441 / 441 [------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------] 100.00% 1 p/s
+2024-07-26T10:10:55+02:00       ERROR   Error during vulnerabilities or misconfiguration scan   err="scan error: unable to initialize a scanner: unable to initialize an image scanner: unable to find the specified image \"auto\" in [\"docker\" \"containerd\" \"podman\" \"remote\"]: 4 errors occurred:\n\t* docker error: unable to inspect the image (auto): Error response from daemon: No such image: auto:latest\n\t* containerd error: failed to parse image reference: auto\n\t* podman error: unable to initialize Podman client: no podman socket found: stat /run/user/1000/podman/podman.sock: no such file or directory\n\t* remote error: GET https://index.docker.io/v2/library/auto/manifests/latest: UNAUTHORIZED: authentication required; [map[Action:pull Class: Name:library/auto Type:repository]]\n\n"
+
+Summary Report for minikube
+
+
+Workload Assessment
+┌───────────────┬────────────────────────────────────────────────────────────────────────┬────────────────────────────┬────────────────────┬───────────────────┐
+│   Namespace   │                                Resource                                │      Vulnerabilities       │ Misconfigurations  │      Secrets      │
+│               │                                                                        ├────┬─────┬──────┬─────┬────┼───┬───┬───┬────┬───┼───┬───┬───┬───┬───┤
+│               │                                                                        │ C  │  H  │  M   │  L  │ U  │ C │ H │ M │ L  │ U │ C │ H │ M │ L │ U │
+├───────────────┼────────────────────────────────────────────────────────────────────────┼────┼─────┼──────┼─────┼────┼───┼───┼───┼────┼───┼───┼───┼───┼───┼───┤
+│ test-istio    │ Deployment/mailpit                                                     │    │     │  2   │     │    │   │ 1 │ 4 │ 9  │   │   │   │   │   │   │
+│ monitoring    │ Deployment/prometheus-grafana                                          │    │ 10  │  79  │ 9   │    │   │ 4 │ 2 │ 27 │   │   │   │   │   │   │
+│ monitoring    │ StatefulSet/prometheus-prometheus-kube-prometheus-prometheus           │    │     │  6   │ 2   │    │   │   │   │ 18 │   │   │   │   │   │   │
+│ monitoring    │ DaemonSet/prometheus-prometheus-node-exporter                          │ 1  │     │  2   │     │    │   │ 3 │ 3 │ 9  │   │   │   │   │   │   │
+│ monitoring    │ Deployment/prometheus-kube-prometheus-operator                         │    │     │  1   │     │    │   │   │   │ 6  │   │   │   │   │   │   │
+│ monitoring    │ ConfigMap/prometheus-operator-opensearch-datasource                    │    │     │      │     │    │   │ 1 │   │    │   │   │   │   │   │   │
+│ monitoring    │ Deployment/prometheus-kube-state-metrics                               │    │     │      │     │    │   │   │   │ 6  │   │   │   │   │   │   │
+│ monitoring    │ ConfigMap/prometheus-prometheus-kube-prometheus-prometheus-rulefiles-0 │    │     │      │     │    │   │   │ 1 │    │   │   │   │   │   │   │
+│ jenkins       │ StatefulSet/jenkins                                                    │ 8  │ 38  │  60  │ 228 │    │   │ 1 │ 6 │ 38 │   │   │   │   │   │   │
+│ jenkins       │ ConfigMap/jenkins-jenkins-jcasc-config                                 │    │     │      │     │    │   │ 1 │ 1 │    │   │   │   │   │   │   │
+│ istio-system  │ ConfigMap/istio-sidecar-injector                                       │    │     │      │     │    │   │ 1 │   │    │   │   │   │   │   │   │
+│ istio-system  │ Deployment/grafana                                                     │ 3  │  5  │  44  │ 2   │    │   │ 1 │ 1 │ 6  │   │   │   │   │   │   │
+│ istio-system  │ Deployment/istiod                                                      │    │     │  6   │ 38  │    │   │   │ 1 │ 5  │   │   │   │   │   │   │
+│ istio-system  │ Deployment/prometheus                                                  │ 3  │  6  │  24  │     │    │   │ 2 │ 6 │ 18 │   │   │   │   │   │   │
+│ istio-system  │ ConfigMap/kiali                                                        │    │     │      │     │    │   │ 1 │ 1 │    │   │   │   │   │   │   │
+│ istio-system  │ Deployment/jaeger                                                      │ 1  │  5  │  6   │     │    │   │ 1 │ 3 │ 8  │   │   │   │   │   │   │
+│ istio-system  │ Deployment/kiali                                                       │ 1  │  8  │  6   │ 48  │    │   │   │ 1 │ 4  │   │   │   │   │   │   │
+│ istio-system  │ Deployment/istio-ingress                                               │    │     │      │     │    │   │   │ 3 │ 3  │   │   │   │   │   │   │
+│ istio-ingress │ Deployment/gateway-istio                                               │    │     │  6   │ 38  │    │   │   │ 2 │ 3  │   │   │   │   │   │   │
+│ ingress-nginx │ Job/ingress-nginx-admission-patch                                      │    │     │      │     │    │   │ 1 │ 1 │ 9  │   │   │   │   │   │   │
+│ ingress-nginx │ Job/ingress-nginx-admission-create                                     │    │     │      │     │    │   │ 1 │ 1 │ 9  │   │   │   │   │   │   │
+│ ingress-nginx │ Deployment/ingress-nginx-controller                                    │ 3  │  5  │  42  │     │    │   │ 3 │ 4 │ 5  │   │   │   │   │   │   │
+│ gatekeeper    │ Deployment/gatekeeper-controller-manager                               │    │     │      │     │    │   │   │   │ 3  │   │   │   │   │   │   │
+│ gatekeeper    │ Deployment/gatekeeper-audit                                            │    │     │      │     │    │   │   │   │ 3  │   │   │   │   │   │   │
+│ develop       │ Deployment/test                                                        │ 73 │ 859 │ 1994 │ 875 │ 14 │   │ 4 │ 8 │ 19 │   │   │   │   │   │   │
+│ cert-manager  │ Deployment/cert-manager-webhook                                        │    │     │      │     │    │   │   │   │ 6  │   │   │   │   │   │   │
+│ cert-manager  │ Deployment/cert-manager-cainjector                                     │    │     │      │     │    │   │   │   │ 6  │   │   │   │   │   │   │
+│ cert-manager  │ Deployment/cert-manager                                                │    │     │      │     │    │   │   │   │ 6  │   │   │   │   │   │   │
+└───────────────┴────────────────────────────────────────────────────────────────────────┴────┴─────┴──────┴─────┴────┴───┴───┴───┴────┴───┴───┴───┴───┴───┴───┘
+Severities: C=CRITICAL H=HIGH M=MEDIUM L=LOW U=UNKNOWN
+
+
+Infra Assessment
+┌─────────────┬───────────────────────────────────────────────┬──────────────────────┬────────────────────┬───────────────────┐
+│  Namespace  │                   Resource                    │   Vulnerabilities    │ Misconfigurations  │      Secrets      │
+│             │                                               ├───┬────┬────┬────┬───┼───┬───┬───┬────┬───┼───┬───┬───┬───┬───┤
+│             │                                               │ C │ H  │ M  │ L  │ U │ C │ H │ M │ L  │ U │ C │ H │ M │ L │ U │
+├─────────────┼───────────────────────────────────────────────┼───┼────┼────┼────┼───┼───┼───┼───┼────┼───┼───┼───┼───┼───┼───┤
+│ kube-system │ Service/prometheus-kube-prometheus-kube-etcd  │   │    │    │    │   │   │   │ 1 │    │   │   │   │   │   │   │
+│ kube-system │ Service/prometheus-kube-prometheus-kubelet    │   │    │    │    │   │   │   │ 1 │    │   │   │   │   │   │   │
+│ kube-system │ Service/external-dns                          │   │    │    │    │   │   │   │ 1 │    │   │   │   │   │   │   │
+│ kube-system │ Service/prometheus-kube-prometheus-coredns    │   │    │    │    │   │   │   │ 1 │    │   │   │   │   │   │   │
+│ kube-system │ DaemonSet/kube-proxy                          │ 2 │ 5  │ 14 │ 15 │   │   │ 3 │ 5 │ 9  │   │   │   │   │   │   │
+│ kube-system │ Pod/etcd-minikube                             │   │    │    │    │   │   │ 2 │ 4 │ 6  │   │   │   │   │   │   │
+│ kube-system │ Pod/kube-apiserver-minikube                   │   │    │    │    │   │   │ 2 │ 5 │ 16 │   │   │   │   │   │   │
+│ kube-system │ Service/prometheus-kube-prometheus-kube-proxy │   │    │    │    │   │   │   │ 1 │    │   │   │   │   │   │   │
+│ kube-system │ Pod/kube-controller-manager-minikube          │   │    │    │    │   │   │ 2 │ 4 │ 10 │   │   │   │   │   │   │
+│ kube-system │ ConfigMap/extension-apiserver-authentication  │   │    │    │    │   │   │   │ 1 │    │   │   │   │   │   │   │
+│ kube-system │ Pod/kube-scheduler-minikube                   │   │    │    │    │   │   │ 2 │ 4 │ 8  │   │   │   │   │   │   │
+│ kube-system │ NetworkPolicy/external-dns                    │   │    │    │    │   │   │   │ 1 │    │   │   │   │   │   │   │
+│ kube-system │ Pod/storage-provisioner                       │ 4 │ 51 │ 32 │ 1  │   │   │ 2 │ 5 │ 9  │   │   │   │   │   │   │
+│ kube-system │ Deployment/external-dns                       │ 1 │ 4  │ 25 │ 68 │   │   │   │ 1 │ 2  │   │   │   │   │   │   │
+│ kube-system │ DaemonSet/kindnet                             │ 3 │ 13 │ 47 │ 20 │   │   │ 3 │ 6 │ 5  │   │   │   │   │   │   │
+│ kube-system │ Service/kube-dns                              │   │    │    │    │   │   │   │ 1 │    │   │   │   │   │   │   │
+│ kube-system │ Deployment/coredns                            │   │    │    │    │   │   │ 1 │ 4 │ 4  │   │   │   │   │   │   │
+│             │ Node/minikube                                 │   │    │ 1  │    │   │   │ 4 │   │ 2  │   │   │   │   │   │   │
+└─────────────┴───────────────────────────────────────────────┴───┴────┴────┴────┴───┴───┴───┴───┴────┴───┴───┴───┴───┴───┴───┘
+Severities: C=CRITICAL H=HIGH M=MEDIUM L=LOW U=UNKNOWN
+
+
+RBAC Assessment
+┌───────────────┬────────────────────────────────────────────────────────────────────┬───────────────────┐
+│   Namespace   │                              Resource                              │  RBAC Assessment  │
+│               │                                                                    ├───┬───┬───┬───┬───┤
+│               │                                                                    │ C │ H │ M │ L │ U │
+├───────────────┼────────────────────────────────────────────────────────────────────┼───┼───┼───┼───┼───┤
+│ kube-system   │ Role/system::leader-locking-kube-scheduler                         │   │   │ 1 │   │   │
+│ kube-system   │ Role/system::leader-locking-kube-controller-manager                │   │   │ 1 │   │   │
+│ kube-system   │ Role/system:controller:cloud-provider                              │   │   │ 1 │   │   │
+│ kube-system   │ Role/system:controller:bootstrap-signer                            │   │   │ 1 │   │   │
+│ kube-system   │ Role/system:controller:token-cleaner                               │   │   │ 1 │   │   │
+│ kube-system   │ Role/system:persistent-volume-provisioner                          │   │ 2 │   │   │   │
+│ kube-public   │ Role/system:controller:bootstrap-signer                            │   │   │ 1 │   │   │
+│ kube-public   │ RoleBinding/kubeadm:bootstrap-signer-clusterinfo                   │ 1 │   │   │   │   │
+│ jenkins       │ Role/jenkins-schedule-agents                                       │   │ 1 │ 1 │   │   │
+│ istio-system  │ Role/kiali-controlplane                                            │   │   │ 1 │   │   │
+│ istio-system  │ Role/istio-ingress                                                 │   │   │ 1 │   │   │
+│ istio-system  │ Role/istiod                                                        │   │   │ 2 │   │   │
+│ ingress-nginx │ Role/ingress-nginx-admission                                       │   │   │ 1 │   │   │
+│ ingress-nginx │ Role/ingress-nginx                                                 │   │   │ 3 │   │   │
+│ gatekeeper    │ Role/gatekeeper-manager-role                                       │   │   │ 1 │   │   │
+│ develop       │ Role/jenkins-updater                                               │   │   │ 1 │   │   │
+│ cert-manager  │ Role/cert-manager-webhook:dynamic-serving                          │   │   │ 2 │   │   │
+│               │ ClusterRole/system:controller:persistent-volume-binder             │ 1 │ 2 │ 1 │   │   │
+│               │ ClusterRole/cert-manager-controller-issuers                        │ 1 │   │   │   │   │
+│               │ ClusterRole/istio-reader-clusterrole-istio-system                  │ 2 │   │   │   │   │
+│               │ ClusterRole/cert-manager-controller-certificates                   │ 1 │   │   │   │   │
+│               │ ClusterRole/system:controller:endpoint-controller                  │   │ 1 │   │   │   │
+│               │ ClusterRole/system:node                                            │ 1 │   │ 1 │   │   │
+│               │ ClusterRole/system:aggregate-to-admin                              │ 1 │   │   │   │   │
+│               │ ClusterRole/system:kube-controller-manager                         │ 5 │   │   │   │   │
+│               │ ClusterRole/edit                                                   │ 2 │ 4 │ 6 │   │   │
+│               │ ClusterRole/system:controller:node-controller                      │   │   │ 1 │   │   │
+│               │ ClusterRole/system:controller:legacy-service-account-token-cleaner │ 1 │   │   │   │   │
+│               │ ClusterRole/system:controller:horizontal-pod-autoscaler            │ 2 │   │   │   │   │
+│               │ ClusterRole/system:controller:replication-controller               │   │   │ 2 │   │   │
+│               │ ClusterRole/istiod-gateway-controller-istio-system                 │   │ 1 │ 1 │   │   │
+│               │ ClusterRole/system:controller:endpointslice-controller             │   │ 1 │   │   │   │
+│               │ ClusterRole/system:controller:deployment-controller                │   │   │ 3 │   │   │
+│               │ ClusterRole/prometheus-grafana-clusterrole                         │ 1 │   │   │   │   │
+│               │ ClusterRole/system:controller:generic-garbage-collector            │ 1 │   │   │   │   │
+│               │ ClusterRole/system:aggregate-to-edit                               │ 2 │ 4 │ 6 │   │   │
+│               │ ClusterRole/system:controller:daemon-set-controller                │   │   │ 1 │   │   │
+│               │ ClusterRole/system:controller:root-ca-cert-publisher               │   │   │ 1 │   │   │
+│               │ ClusterRoleBinding/minikube-rbac                                   │   │   │ 1 │   │   │
+│               │ ClusterRole/system:controller:job-controller                       │   │   │ 2 │   │   │
+│               │ ClusterRole/system:controller:expand-controller                    │ 1 │   │   │   │   │
+│               │ ClusterRole/system:kube-scheduler                                  │   │   │ 1 │   │   │
+│               │ ClusterRole/cert-manager-controller-challenges                     │ 2 │ 2 │ 1 │   │   │
+│               │ ClusterRole/prometheus-kube-prometheus-operator                    │ 3 │ 1 │ 3 │   │   │
+│               │ ClusterRole/cert-manager-cainjector                                │ 2 │   │   │   │   │
+│               │ ClusterRole/system:controller:namespace-controller                 │ 1 │   │   │   │   │
+│               │ ClusterRole/cert-manager-controller-clusterissuers                 │ 1 │   │   │   │   │
+│               │ ClusterRoleBinding/cluster-admin                                   │   │   │ 1 │   │   │
+│               │ ClusterRole/admin                                                  │ 3 │ 4 │ 6 │   │   │
+│               │ ClusterRole/system:controller:statefulset-controller               │   │   │ 1 │   │   │
+│               │ ClusterRole/kiali                                                  │ 1 │ 1 │ 3 │   │   │
+│               │ ClusterRole/istiod-clusterrole-istio-system                        │ 6 │   │ 1 │   │   │
+│               │ ClusterRole/prometheus-kube-state-metrics                          │ 1 │   │   │   │   │
+│               │ ClusterRole/system:controller:replicaset-controller                │   │   │ 2 │   │   │
+│               │ ClusterRole/system:controller:resourcequota-controller             │ 1 │   │   │   │   │
+│               │ ClusterRole/system:controller:endpointslicemirroring-controller    │   │ 1 │   │   │   │
+│               │ ClusterRole/ingress-nginx-admission                                │ 1 │   │   │   │   │
+│               │ ClusterRole/system:controller:pod-garbage-collector                │   │   │ 1 │   │   │
+│               │ ClusterRoleBinding/kubeadm:cluster-admins                          │   │   │ 1 │   │   │
+│               │ ClusterRole/prometheus                                             │   │ 1 │   │   │   │
+│               │ ClusterRole/cert-manager-controller-orders                         │ 1 │   │   │   │   │
+│               │ ClusterRole/gatekeeper-manager-role                                │ 7 │   │   │   │   │
+│               │ ClusterRole/ingress-nginx                                          │ 1 │   │   │   │   │
+│               │ ClusterRole/system:controller:ttl-after-finished-controller        │   │   │ 1 │   │   │
+│               │ ClusterRole/system:controller:cronjob-controller                   │   │   │ 3 │   │   │
+│               │ ClusterRole/cluster-admin                                          │ 2 │   │   │   │   │
+└───────────────┴────────────────────────────────────────────────────────────────────┴───┴───┴───┴───┴───┘
+Severities: C=CRITICAL H=HIGH M=MEDIUM L=LOW U=UNKNOWN
+
+NAME                       REPOSITORY       TAG       SCANNER   AGE
+rep...69457bd7bb           ...-cainjector   v1.15.1   Trivy     23m
+rep...ger-controller       ...-controller   v1.15.1   Trivy     25m
+rep...cert-manager-webhook ...-webhook      v1.15.1   Trivy     24m

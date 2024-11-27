@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.11
 
 MAINTAINER Yannig Perré "yannig.perre@gmail.com"
 

@@ -1,10 +1,10 @@
-apiVersion: "networking.istio.io/v1beta1"
+apiVersion: "networking.istio.io/v1"
 kind: "DestinationRule"
 metadata:
-  name: "mailhog-istio-client-mtls"
+  name: "mailpit-istio-client-mtls"
   namespace: "test-istio"
 spec:
-  host: mailhog.test-istio.svc.cluster.local
+  host: mailpit.test-istio.svc.cluster.local
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL

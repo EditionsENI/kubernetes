@@ -1,13 +1,13 @@
-apiVersion: networking.istio.io/v1beta1
+apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
-  name: mailhog
+  name: mailpit
   namespace: test-istio
 spec:
   hosts:
   - "test.eni.yannig.ovh"
   gateways:
-  - mailhog-gateway
+  - mailpit-gateway
   http:
     - match:
         - uri:
@@ -16,4 +16,4 @@ spec:
         - destination:
             port:
               number: 8025
-            host: mailhog
+            host: mailpit

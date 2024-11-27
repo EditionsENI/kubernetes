@@ -1,6 +1,6 @@
-FROM python:3-slim
+FROM docker.io/library/python:3.11-slim
 
-MAINTAINER Yannig Perré "yannig.perre@gmail.com"
+LABEL maintainer="Yannig Perré yannig.perre@gmail.com"
 
 # We copy just the requirements.txt first to leverage Docker cache
 COPY ./requirements.txt /app/requirements.txt

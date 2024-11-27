@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: scan-trivy
+spec:
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      serviceAccountName: trivy
+      containers:
+        - command:
+            - trivy
+            - kubernetes
+            - --report=summary
+            - --timeout=20m
+          image: docker.io/aquasec/trivy:0.53.0
+          name: scan-trivy
+      restartPolicy: Never

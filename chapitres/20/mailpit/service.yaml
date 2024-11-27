@@ -1,17 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mailhog
+  name: mailpit
   namespace: test-istio
   labels:
-    app: mailhog
+    app: mailpit
 spec:
   ports:
     - name: http
       port: 8025
       targetPort: 8025
+      appProtocol: http
     - name: smtp
       port: 1025
       targetPort: 1025
+      appProtocol: smtp
   selector:
-    app: mailhog
+    app: mailpit

@@ -7,7 +7,7 @@ alertmanager:
     hosts:
       - "alertmanager.eni.yannig.ovh"
     tls:
-      - secretName: alertmanager-eni-yannig-ovh
+      - secretName: alertmanager.eni.yannig.ovh
         hosts:
           - "alertmanager.eni.yannig.ovh"
 
@@ -43,15 +43,9 @@ grafana:
     hosts:
       - "grafana.eni.yannig.ovh"
     tls:
-      - secretName: grafana-eni-yannig-ovh
+      - secretName: grafana.eni.yannig.ovh
         hosts:
           - "grafana.eni.yannig.ovh"
-
-coreDns:
-  enabled: false
-
-kubeDns:
-  enabled: true
 
 kubeControllerManager:
   enabled: false
