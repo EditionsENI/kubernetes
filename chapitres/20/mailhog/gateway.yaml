@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: mailhog-gateway
+  namespace: test-istio
+spec:
+  selector:
+    istio: ingress
+  servers:
+    - port:
+        number: 80
+        name: http2-mailhog
+        protocol: HTTP2
+      hosts:
+        - "test.eni.yannig.ovh"
+      tls:
+        httpsRedirect: true
+    - port:
+        number: 443
+        name: https-mailhog
+        protocol: HTTPS
+      hosts:
+        - "test.eni.yannig.ovh"
+      tls:
+        mode: SIMPLE
+        credentialName: "eni.yannig.ovh"

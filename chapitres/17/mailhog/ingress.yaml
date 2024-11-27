@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mailhog
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "mailhog.eni.yannig.ovh"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: mailhog
+            port:
+              number: 8025
+  tls:
+    - secretName: eni-yannig-ovh-prod-tls
+      hosts:
+        - "mailhog.eni.yannig.ovh"
