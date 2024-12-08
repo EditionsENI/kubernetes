@@ -5,7 +5,7 @@ metadata:
     app: mailpit
   name: mailpit
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
   - name: port-1
     port: 1025

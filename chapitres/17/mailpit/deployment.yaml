@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: mailpit
   labels:
     app: mailpit
-  name: mailpit
 spec:
   replicas: 1
   selector:
@@ -14,13 +14,16 @@ spec:
       labels:
         app: mailpit
     spec:
+      volumes:
+        - name: maildir
+          persistentVolumeClaim: { claimName: pvc-mailpit }
       containers:
-      - image: axllent/mailpit
-        name: mailpit
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "10m"
-          limits:
-            memory: "128Mi"
-            cpu: "10m"
+        - image: axllent/mailpit
+          name: mailpit
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /maildir
+              name:      maildir
+          command:
+            - "./mailpit"
+            - "--db-file=/maildir/mailpit.db"
